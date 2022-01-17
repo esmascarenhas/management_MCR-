@@ -39,6 +39,23 @@ Desafio que pude desenvolver uma api seguindo alguns Design Patterns:  <strong> 
     
 
 </ul>
+	
+🔸 <strong> Security </strong><br>
+	  Utilização do JWT para geração e validação de token para autenticação.<br>
+	  Spring Security para solução de segurança<br>
+	  Autenticação de usuario e senha via Banco de dados<br>
+	  
+  <p><strong>🔗No Controlador de acesso:<br>
+<br>
+	
+	🔻 Realiza o metodo post, utilizando o username e a senha do usuário;
+	🔻 Cadastrado, no Banco, dois usuários para teste:
+	       Perfil ADMIN: Username (Admin) senha (123456)
+	       Perfil User: Username (Usuario) senha (654321)
+	🔻 Executando o metodo post, recebe o token e cadastra no autorizador (Cadeaddo no canto superior direito);
+	🔻 Pronto! Você está autorizado para utilizar os serviços que possui autenticação liberada(conforme consta na descrição de cada metodo.
+	
+</br>
   
     
     
