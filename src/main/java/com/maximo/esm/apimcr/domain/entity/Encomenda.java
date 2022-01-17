@@ -5,7 +5,7 @@ import com.maximo.esm.apimcr.domain.exception.NegocioException;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
+
 import javax.validation.constraints.NotEmpty;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
@@ -38,8 +38,12 @@ public class Encomenda {
     @Enumerated(EnumType.STRING )
     private StatusEncomenda statusEncomenda;
 
+    @OneToMany(mappedBy = "encomenda",cascade = CascadeType.ALL)
+    private List<OcorrenciaEncomenda> ocorrenciaEncomendas = new ArrayList<>();
+
     private OffsetDateTime entradaEncomenda;
     private OffsetDateTime baixaEncomenda;
+
 
 
         public void baixarEncomenda(){
@@ -77,8 +81,6 @@ public class Encomenda {
 
 
 
-    @OneToMany(mappedBy = "encomenda" , cascade = CascadeType.ALL)
-    private List<OcorrenciaEncomenda> ocorrenciaEncomendas = new ArrayList<>();
 
     public OcorrenciaEncomenda adicionarOcorrenciaEncomenda(String descricao){
         OcorrenciaEncomenda ocorrenciaEncomenda = new OcorrenciaEncomenda();

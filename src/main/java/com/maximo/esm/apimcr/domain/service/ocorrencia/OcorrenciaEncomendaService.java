@@ -3,6 +3,7 @@ package com.maximo.esm.apimcr.domain.service.ocorrencia;
 import com.maximo.esm.apimcr.api.dto.mapper.EncomendaMapper;
 import com.maximo.esm.apimcr.api.dto.model.response.EncomendaResponse;
 import com.maximo.esm.apimcr.api.dto.model.response.OcorrenciaEncomendaResponse;
+import com.maximo.esm.apimcr.api.dto.model.resume.DetalheOcorrenciaEncomenda;
 import com.maximo.esm.apimcr.domain.entity.Encomenda;
 import com.maximo.esm.apimcr.domain.entity.OcorrenciaEncomenda;
 import com.maximo.esm.apimcr.domain.exception.EncomendaNaoEncontradaException;
@@ -35,5 +36,18 @@ public class OcorrenciaEncomendaService {
         return repository.findAll();
     }
 
+/*    public DetalheOcorrenciaEncomenda findById (Integer encomendaid) throws EncomendaNaoEncontradaException {
+        OcorrenciaEncomenda ocorencia = repository.findById(encomendaid);
+        Encomenda encomenda = encomendaMapper.toEntity2(buscarEncomenda.findById(encomendaid));
+        encomenda.getUnidade().getProprietario();
+        encomenda.getUnidade().getApartamento();
+        encomenda.getUnidade().getTorre();
+        DetalheOcorrenciaEncomenda detalhe =
+        return repository.save(encomenda);
+    }*/
+   /* public DetalheOcorrenciaEncomenda buscarOcorrencias ( DetalheOcorrenciaEncomenda detalheOcorrencia){
+        OcorrenciaEncomenda ocorrencias = repository.findById(detalheOcorrencia.getEncomenda().)
+        return repository.findById()
+    }*/
 
 }

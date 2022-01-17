@@ -1,5 +1,6 @@
 package com.maximo.esm.apimcr.domain.entity;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -17,6 +18,10 @@ import java.util.List;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Unidade {
 
+    @Id
+    @EqualsAndHashCode.Include
+    @ApiModelProperty(value = "Código da unidade")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @NotEmpty
@@ -39,17 +44,13 @@ public class Unidade {
     @Size(min = 2, max = 50)
     private String torre;
 
-    @Id
-    @EqualsAndHashCode.Include
-    //@ApiModelProperty(value = "Código da unidade")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Integer getId() {
-        return id;
-    }
 
+    @ElementCollection
+    @OneToMany(mappedBy = "unidade",cascade = CascadeType.ALL)
+    private List<Encomenda> encomendas = new ArrayList<>();
 
-/*    @OneToMany(mappedBy = "unidade",cascade = CascadeType.ALL)
-    private List<Encomenda> encomendaList = new ArrayList<>();*/
-
-
+/*
+    @ElementCollection
+    @OneToMany(mappedBy = "unidade",cascade = CascadeType.ALL)
+    private List<Usuario> usuarios = new ArrayList<>();*/
 }

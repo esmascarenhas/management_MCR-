@@ -14,6 +14,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -32,6 +33,7 @@ public class UnidadeController {
     private AlteraUnidadeService alteraunidade;
     private UnidadeMapper mapper;
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/vi/unidade")
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation("Lista todas unidades cadastrada.")
@@ -39,14 +41,14 @@ public class UnidadeController {
         return mapper.toCollectionModel(service.listAll());
 
     }
-
+    @PreAuthorize("hasAuthority('ROLE_ADMIN') or hasAuthority('ROLE_USER')" )
     @GetMapping("/vi/unidade/{unidadeid}")
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation("Busca uma unidade especifica")
     public UnidadeResponse findById(@PathVariable Integer unidadeid) throws UnidadeNaoEncontradaException {
         return service.findById(unidadeid);
     }
-
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @RequestMapping(value = "/v1/unidade",method = RequestMethod.POST,produces = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation("Cadastra uma unidade no MCR")
@@ -54,7 +56,7 @@ public class UnidadeController {
 
         return criaUnidadeService.create(unidadeRequest);
     }
-
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @RequestMapping(value = "/v1/unidade/{unidadeid}",method = RequestMethod.PUT,produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation("Atualiza o cadastro de uma unidade do MCR")
@@ -63,7 +65,7 @@ public class UnidadeController {
     }
 
 
-
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @ApiOperation("Exclui Unidade do cadastro MCR.")
     @DeleteMapping("/vi/unidade/{unidadeid}")
     @ResponseStatus(HttpStatus.NO_CONTENT)

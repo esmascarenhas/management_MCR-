@@ -14,6 +14,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -31,6 +32,8 @@ public class EncomendaController {
     private final CadastraEncomendaService cadastraEncomenda;
     private final EncomendaMapper mapper;
 
+
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation("Lista encomendas do MCR")
     @GetMapping("/v1/encomenda")
@@ -38,13 +41,15 @@ public class EncomendaController {
         return mapper.toCollectionModel(service.findAll());
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN') or hasAuthority('ROLE_USER')" )
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation("Busca uma encomenda do MCR")
     @GetMapping("/v1/encomenda/{encomendaid}")
     public EncomendaResponse findById (@PathVariable Integer encomendaid) throws EncomendaNaoEncontradaException {
         return service.findById(encomendaid);
-    }
 
+    }
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @RequestMapping(value = "/v1/encomenda",method = RequestMethod.POST,produces = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation("Cadastra encomenda para uma unidade do MCR")
@@ -52,20 +57,21 @@ public class EncomendaController {
         return cadastraEncomenda.create(encomendaRequest);
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @RequestMapping(value = "/v1/encomenda/{encomendaid}/entregue",method = RequestMethod.PUT,produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation("Finaliza o status de uma encomenda como entregue")
     public void finalizaEncomenda(@PathVariable Integer encomendaid) throws EncomendaNaoEncontradaException {
         finalizaService.finaliza(encomendaid);
     }
-
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @RequestMapping(value = "/v1/encomenda/{encomendaid}/extraviada",method = RequestMethod.PUT,produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation("Finaliza o status de uma encomenda como extraviada")
     public void encomendaExtraviada(@PathVariable Integer encomendaid) throws EncomendaNaoEncontradaException {
         finalizaService.extraviada(encomendaid);
     }
-
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @RequestMapping(value = "/v1/encomenda/{encomendaid}/quebrada",method = RequestMethod.PUT,produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation("Finalizao status de uma encomenda como quebrada")

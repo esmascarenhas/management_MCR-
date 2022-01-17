@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UnidadeRepository extends JpaRepository<Unidade,Integer> {
+    Unidade findByApartamento(Integer apartamento);
 }

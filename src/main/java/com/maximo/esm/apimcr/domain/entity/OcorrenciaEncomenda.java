@@ -6,6 +6,8 @@ import lombok.*;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Builder
 @Entity
@@ -25,9 +27,11 @@ public class OcorrenciaEncomenda implements Serializable {
 
 
     @ManyToOne
-    @JoinColumn(name = "encomenda_id")
+    //@JoinColumn(name = "encomenda_id")
     private Encomenda encomenda;
 
     private String descricao;
     private OffsetDateTime dataRegistro;
+
+
 }
